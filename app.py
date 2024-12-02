@@ -46,6 +46,21 @@ class AIProvider:
             self.model = ChatOllama(model=OLLAMA_CHAT)
             self.vmodel = ChatOllama(model=OLLAMA_VISUAL_CHAT)
             self.embeddings = OllamaEmbeddings(model=OLLAMA_EMBEDDINGS_MODEL)
+        elif self.provider_name == "openai":
+            from config import (
+                OPENAI_ENDPOINT,
+                OPENAI_CHAT,
+                OPENAI_VISUAL_CHAT,
+                OPENAI_EMBEDDINGS_MODEL,
+            )
+            from langchain_community.chat_models import ChatOpenAI
+            from langchain_community.embeddings import OpenAIEmbeddings
+
+            self.EMBEDDINGS_MODEL = OPENAI_EMBEDDINGS_MODEL
+
+            self.model = ChatOpenAI(model=OPENAI_CHAT,api_key="llama",base_url=OPENAI_ENDPOINT)
+            self.vmodel = ChatOpenAI(model=OPENAI_VISUAL_CHAT,api_key="llama",base_url=OPENAI_ENDPOINT)
+            self.embeddings = OpenAIEmbeddings(model=OPENAI_EMBEDDINGS_MODEL,api_key="llama",base_url=OPENAI_ENDPOINT)
 
         elif self.provider_name == "fireworks":
             from config import (
